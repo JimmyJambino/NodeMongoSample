@@ -20,6 +20,7 @@ import { format } from "date-fns";
 import {getConnectionInfo} from "./config/connection.js";
 // var indexRouter = require("./routes/index");
 import indexRouter from "./routes/index.js";
+import userRouter from "./routes/users.js";
 
 export async function getApp() {
 
@@ -48,6 +49,7 @@ export async function getApp() {
   app.locals.format = format;
 
   app.use("/", indexRouter);
+  app.use("/users", userRouter);
   app.use("/js", express.static(__dirname + "/node_modules/bootstrap/dist/js")); // redirect bootstrap JS
   app.use(
     "/css",

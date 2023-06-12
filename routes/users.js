@@ -4,29 +4,24 @@ import User from "../models/user.js";
 var router = express.Router();
 
 async function createUser(userDetails) {
-  var task = new Task({
-    taskName: taskName,
-    createDate: createDate
-  });
-
+  const createDate = Date.now();
   var user = new User({
     userName: userDetails.userName,
-    createDate: userDetails.createDate
+    createDate
   });
 
-  user.save()
-      .then(() => { 
-        console.log(`Added new task ${taskName} - createDate ${createDate}`)        
-        res.redirect('/'); })
-      .catch((err) => {
-          console.log(err);
-          res.send('Sorry! Something went wrong.');
-      });
+  user.save();
 }
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
+});
+
+router.post('/', async function(req, res, next) {
+  console.log(req.body);
+  createUser(req.body);
+  res.send("Created user.");
 });
 
 export default router;
