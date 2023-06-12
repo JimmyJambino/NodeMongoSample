@@ -1,19 +1,33 @@
-var createError = require("http-errors");
-var express = require("express");
-var mongoose = require("mongoose");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
-const { format } = require("date-fns");
+// var createError = require("http-errors");
+import createError from "http-errors";
+// var express = require("express");
+import express from "express";
+// var mongoose = require("mongoose");
+import mongoose from "mongoose";
+// var path = require("path");
+import path from "path";
+// var cookieParser = require("cookie-parser");
+import cookieParser from "cookie-parser";
+// var logger = require("morgan");
+import logger from "morgan";
+// const { format } = require("date-fns");
+import { format } from "date-fns";
+
+
 
 // 1st party dependencies
-var configData = require("./config/connection");
-var indexRouter = require("./routes/index");
+// var configData = require("./config/connection");
+import {getConnectionInfo} from "./config/connection.js";
+// var indexRouter = require("./routes/index");
+import indexRouter from "./routes/index.js";
 
-async function getApp() {
+export async function getApp() {
+
+  // Fixing __dirname for es module
+  const __dirname = path.resolve("");
 
   // Database
-  var connectionInfo = await configData.getConnectionInfo();
+  var connectionInfo = await getConnectionInfo();
   mongoose.connect(connectionInfo.DATABASE_URL);
 
   var app = express();
@@ -77,6 +91,6 @@ async function getApp() {
 
   return false;
 }
-module.exports = {
-  getApp
-};
+// module.exports = {
+//   getApp
+// };

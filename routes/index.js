@@ -1,5 +1,7 @@
-var express = require('express');
-var Task = require('../models/task');
+// var express = require('express');
+import express from "express";
+// var Task = require('../models/task');
+import Task from "../models/task.js";
 
 var router = express.Router();
 
@@ -70,4 +72,5 @@ router.post('/deleteTask', function(req, res, next) {
 });
 
 
-module.exports = router;
+// module.exports = router;
+export default router;

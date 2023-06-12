@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 const taskSchema = new mongoose.Schema({
   taskName: {
@@ -10,4 +11,5 @@ const taskSchema = new mongoose.Schema({
   completed: Boolean
 });
 
-module.exports = mongoose.model('Task', taskSchema);
+// module.exports = mongoose.model('Task', taskSchema);
+export default mongoose.model('Task', taskSchema);

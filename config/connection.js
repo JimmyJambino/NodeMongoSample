@@ -1,6 +1,9 @@
-require("dotenv").config();
-const mongoose = require("mongoose");
-const { getSecret } = require("./keyvault");
+// require("dotenv").config();
+import "dotenv/config";
+// const mongoose = require("mongoose");
+import mongoose from "mongoose";
+// const { getSecret } = require("./keyvault");
+import { getSecret } from "./keyvault.js";
 
 async function putKeyVaultSecretInEnvVar() {
 
@@ -17,7 +20,7 @@ async function putKeyVaultSecretInEnvVar() {
 
 }
 
-async function getConnectionInfo() {
+export async function getConnectionInfo() {
   if (!process.env.DATABASE_URL) {
 
     await putKeyVaultSecretInEnvVar();
@@ -33,11 +36,11 @@ async function getConnectionInfo() {
 
   return {
     DATABASE_URL: process.env.DATABASE_URL,
-    DATABASE_NAME: process.env.DATABASE_NAME
+    DATABASE_NAME: DATABASE_NAME
   }
 }
 
 
-module.exports = {
-  getConnectionInfo
-}
+// module.exports = {
+//   getConnectionInfo
+// }

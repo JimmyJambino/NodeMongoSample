@@ -1,7 +1,9 @@
-const { DefaultAzureCredential } = require("@azure/identity");
-const { SecretClient } = require("@azure/keyvault-secrets");
+// const { DefaultAzureCredential } = require("@azure/identity");
+import {DefaultAzureCredential} from "@azure/identity";
+// const { SecretClient } = require("@azure/keyvault-secrets");
+import { SecretClient } from "@azure/keyvault-secrets";
 
-const getSecret = async (secretName, keyVaultName) => {
+export const getSecret = async (secretName, keyVaultName) => {
 
     if (!secretName || !keyVaultName) {
         throw Error("getSecret: Required params missing")
@@ -29,6 +31,6 @@ const getSecret = async (secretName, keyVaultName) => {
     }
 }
 
-module.exports = {
-    getSecret
-  }
+// module.exports = {
+//     getSecret
+//   }
