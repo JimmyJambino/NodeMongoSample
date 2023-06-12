@@ -1,28 +1,20 @@
-// var express = require('express');
 import express from "express";
-// var Task = require('../models/task');
 import Task from "../models/task.js";
 
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  Task.find()
-    .then((tasks) => {      
-      const currentTasks = tasks.filter(task => !task.completed);
-      const completedTasks = tasks.filter(task => task.completed === true);
-
-      console.log(`Total tasks: ${tasks.length}   Current taskss: ${currentTasks.length}    Completed tasks:  ${completedTasks.length}`)
-      res.render('index', { currentTasks: currentTasks, completedTasks: completedTasks });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.send('Sorry! Something went wrong.');
-    });
+router.get('/', async function(req, res, next) {
+  try {
+    const tasks = await Task.find();
+    const currentTasks = tasks.filter(task => !task.completed);
+    res.send(currentTasks);
+  } catch(err) {
+    res.send("Something went wrong.");
+  }
 });
 
 
-router.post('/addTask', function(req, res, next) {
+router.post('/addTask', async function(req, res, next) {
   const taskName = req.body.taskName;
   const createDate = Date.now();
   
@@ -31,15 +23,16 @@ router.post('/addTask', function(req, res, next) {
     createDate: createDate
   });
   console.log(`Adding a new task ${taskName} - createDate ${createDate}`)
-
-  task.save()
-      .then(() => { 
-        console.log(`Added new task ${taskName} - createDate ${createDate}`)        
-        res.redirect('/'); })
-      .catch((err) => {
-          console.log(err);
-          res.send('Sorry! Something went wrong.');
-      });
+  await task.save();
+  res.redirect("/");
+  // task.save()
+  //     .then(() => { 
+  //       console.log(`Added new task ${taskName} - createDate ${createDate}`)        
+  //       res.redirect('/'); })
+  //     .catch((err) => {
+  //         console.log(err);
+  //         res.send('Sorry! Something went wrong.');
+  //     });
 });
 
 router.post('/completeTask', function(req, res, next) {
